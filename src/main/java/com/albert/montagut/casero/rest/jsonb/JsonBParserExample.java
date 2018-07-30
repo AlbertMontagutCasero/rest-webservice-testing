@@ -22,9 +22,9 @@ import javax.json.JsonWriter;
 
 import com.albert.montagut.casero.rest.model.Employee;
 
-public class JsonBReader
+public class JsonBParserExample
 {
-	public JsonBReader()
+	public JsonBParserExample()
 	{
 
 	}
@@ -32,18 +32,13 @@ public class JsonBReader
 	private String JSON_READ_RESOURCE = "/emp-array.json";
 	private String JSON_WRITE_RESOURCE = "src//main//resources//emp-array2.json";
 
-
-
 	public void writerObjectsToJson(List< Employee > employees)
 	{
 		JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
 		for ( Employee employee : employees )
 		{
-			jsonArrayBuilder.add(
-			                      Json.createObjectBuilder()
-			                      		.add( "employeeId", employee.getEmployeeId() )
-																.add( "firstName", employee.getFirstName() )
-																.add( "lastName", employee.getLastName() )
+			jsonArrayBuilder.add( Json.createObjectBuilder().add( "employeeId", employee.getEmployeeId() )
+																.add( "firstName", employee.getTesting() ).add( "lastName", employee.getLastName() )
 																.add( "email", employee.getEmail() )
 																.add( "hireDate", employee.getHireDate().toString() ) );
 		}
@@ -98,7 +93,7 @@ public class JsonBReader
 
 	public static void main(String[] args)
 	{
-		JsonBReader jsonBReader = new JsonBReader();
+		JsonBParserExample jsonBReader = new JsonBParserExample();
 		List< Employee > employees = jsonBReader.readerFromJsonToObjects();
 		for ( Employee employee : employees )
 		{
