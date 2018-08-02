@@ -22,84 +22,67 @@ import javax.json.JsonWriter;
 
 import com.albert.montagut.casero.rest.model.Employee;
 
-public class JsonBParserExample
-{
-	public JsonBParserExample()
-	{
+public class JsonBParserExample {
+	public JsonBParserExample() {
 
 	}
 
 	private String JSON_READ_RESOURCE = "/emp-array.json";
 	private String JSON_WRITE_RESOURCE = "src//main//resources//emp-array2.json";
 
-	public void writerObjectsToJson(List< Employee > employees)
-	{
+	public void writerObjectsToJson(List<Employee> employees) {
 		JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-		for ( Employee employee : employees )
-		{
-			jsonArrayBuilder.add( Json.createObjectBuilder().add( "employeeId", employee.getEmployeeId() )
-																.add( "firstName", employee.getTesting() ).add( "lastName", employee.getLastName() )
-																.add( "email", employee.getEmail() )
-																.add( "hireDate", employee.getHireDate().toString() ) );
+		for (Employee employee : employees) {
+			jsonArrayBuilder.add(Json.createObjectBuilder().add("employeeId", employee.getEmployeeId())
+					.add("firstName", employee.getFirstName()).add("lastName", employee.getLastName())
+					.add("email", employee.getEmail()).add("hireDate", employee.getHireDate().toString()));
 		}
 
 		JsonArray employeesArray = jsonArrayBuilder.build();
 
-		try ( OutputStream outputStream = new FileOutputStream( JSON_WRITE_RESOURCE );
-					JsonWriter jsonWriter = Json.createWriter( outputStream ); )
-		{
+		try (OutputStream outputStream = new FileOutputStream(JSON_WRITE_RESOURCE);
+				JsonWriter jsonWriter = Json.createWriter(outputStream);) {
 
-			jsonWriter.writeArray( employeesArray );
-			System.out.println( "File written successfully " );
+			jsonWriter.writeArray(employeesArray);
+			System.out.println("File written successfully ");
 
-		} catch ( IOException e )
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List< Employee > readerFromJsonToObjects()
-	{
-		List< Employee > employees = new ArrayList<>();
+	public List<Employee> readerFromJsonToObjects() {
+		List<Employee> employees = new ArrayList<>();
 		// Get input stream for reading the specified resource.
-		try ( InputStream inputStream = getClass().getResourceAsStream( JSON_READ_RESOURCE );
-					Reader reader = new InputStreamReader( inputStream, "UTF-8" );
-					JsonReader jsonReader = Json.createReader( reader ); )
-		{
+		try (InputStream inputStream = getClass().getResourceAsStream(JSON_READ_RESOURCE);
+				Reader reader = new InputStreamReader(inputStream, "UTF-8");
+				JsonReader jsonReader = Json.createReader(reader);) {
 			JsonArray readArray = jsonReader.readArray();
 
-			for ( JsonValue jsonValue : readArray )
-			{
-				if ( JsonValue.ValueType.OBJECT == jsonValue.getValueType() )
-				{
-					JsonObject jsonObject = ( JsonObject ) jsonValue;
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
-					Date hireDate = simpleDateFormat.parse( jsonObject.getString( "hireDate" ) );
+			for (JsonValue jsonValue : readArray) {
+				if (JsonValue.ValueType.OBJECT == jsonValue.getValueType()) {
+					JsonObject jsonObject = (JsonObject) jsonValue;
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					Date hireDate = simpleDateFormat.parse(jsonObject.getString("hireDate"));
 
-					employees.add( new Employee( jsonObject.getString( "firstName" ),
-																			 jsonObject.getString( "lastName" ),
-																			 jsonObject.getString( "email" ),
-																			 jsonObject.getInt( "employeeId" ),
-																			 hireDate ) );
+					employees.add(new Employee(jsonObject.getString("firstName"), jsonObject.getString("lastName"),
+							jsonObject.getString("email"), jsonObject.getInt("employeeId"), hireDate));
 				}
 			}
 
-		} catch ( IOException | ParseException e )
-		{
+		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
 		return employees;
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		JsonBParserExample jsonBReader = new JsonBParserExample();
-		List< Employee > employees = jsonBReader.readerFromJsonToObjects();
-		for ( Employee employee : employees )
-		{
-			System.out.println( employee.toString() );
+		List<Employee> employees = jsonBReader.readerFromJsonToObjects();
+		for (Employee employee : employees) {
+			System.out.println(employee.toString());
 		}
 
-		jsonBReader.writerObjectsToJson( employees );
+		jsonBReader.writerObjectsToJson(employees);
 	}
 }

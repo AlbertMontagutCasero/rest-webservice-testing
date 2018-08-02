@@ -12,45 +12,33 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
-public class JacksonCreateObjectFrom0Example
-{
+public class JacksonCreateObjectFrom0Example {
 
-	public static void main(String[] args) throws JsonParseException,
-																				 JsonMappingException,
-																				 IOException
-	{
+	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		createJacksonJsonObject();
 
 		createListFromJsonObjectArray();
 	}
 
-	private static void createListFromJsonObjectArray() throws IOException,
-																											JsonParseException,
-																											JsonMappingException
-	{
+	private static void createListFromJsonObjectArray() throws IOException, JsonParseException, JsonMappingException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType( List.class, Employee.class );
-		List< Employee > employees = objectMapper.readValue( new File( "src\\main\\resources\\emp-array.json" ),
-																												 collectionType );
+		CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class,
+				Employee.class);
+		List<Employee> employees = objectMapper.readValue(new File("src\\main\\resources\\emp-array.json"),
+				collectionType);
 
-		for ( Employee employee : employees )
-		{
-			System.out.println( employee.toString() );
+		for (Employee employee : employees) {
+			System.out.println(employee.toString());
 		}
 	}
 
-	private static void createJacksonJsonObject() throws IOException,
-																								JsonParseException,
-																								JsonMappingException
-	{
+	private static void createJacksonJsonObject() throws IOException, JsonParseException, JsonMappingException {
 		String jsonString = "{\" firstName\":\"John\",\"lastName\":\"Chen\"}";
 		ObjectMapper objectMapper = new ObjectMapper();
 		// properties will store name and value pairs read from jsonString
-		Map< String , String > properties =
-																			objectMapper.readValue( jsonString, new TypeReference< Map< String , String > >()
-																			{ //
-																			} );
+		Map<String, String> properties = objectMapper.readValue(jsonString, new TypeReference<Map<String, String>>() { //
+		});
 
-		System.out.println( properties.toString() );
+		System.out.println(properties.toString());
 	}
 }

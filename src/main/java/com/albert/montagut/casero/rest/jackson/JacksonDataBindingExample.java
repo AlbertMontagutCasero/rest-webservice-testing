@@ -50,7 +50,7 @@ public class JacksonDataBindingExample
 			System.out.println( employee );
 			jsonGenerator.writeStartObject();
 			jsonGenerator.writeNumberField( "employeeId", employee.getEmployeeId() );
-			jsonGenerator.writeStringField( "firstName", employee.getTesting() );
+			jsonGenerator.writeStringField( "firstName", employee.getFirstName() );
 			jsonGenerator.writeStringField( "lastName", employee.getLastName() );
 			jsonGenerator.writeEndObject();
 

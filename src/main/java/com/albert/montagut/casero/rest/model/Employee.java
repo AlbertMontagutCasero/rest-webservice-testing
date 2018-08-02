@@ -3,13 +3,14 @@ package com.albert.montagut.casero.rest.model;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.Expose;
 
 public class Employee
 {
 
 
 	@JsonProperty("firstName") private String firstName; //Alias anotation to properties.
-	private String lastName;
+	@Expose private String lastName;
 	private String email;
 	private Integer employeeId;
 	private java.util.Date hireDate;
