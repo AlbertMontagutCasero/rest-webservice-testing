@@ -8,7 +8,7 @@ public class Employee
 {
 
 
-	@JsonProperty("firstName") private String testinggg; //Alias anotation to properties.
+	@JsonProperty("firstName") private String firstName; //Alias anotation to properties.
 	private String lastName;
 	private String email;
 	private Integer employeeId;
@@ -21,7 +21,7 @@ public class Employee
 
 	public Employee(String name, String lastName, String email, Integer employeeId, Date hireDate)
 	{
-		this.testinggg = name;
+		this.firstName = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.employeeId = employeeId;
@@ -30,20 +30,20 @@ public class Employee
 
 	public Employee(String name, String lastName, Integer employeeId, Date hireDate)
 	{
-		this.testinggg = name;
+		this.firstName = name;
 		this.lastName = lastName;
 		this.employeeId = employeeId;
 		this.hireDate = hireDate;
 	}
 
-	public String getTesting()
+	public String getFirstName()
 	{
-		return testinggg;
+		return firstName;
 	}
 
-	public void setTesting(String name)
+	public void setFristName(String name)
 	{
-		this.testinggg = name;
+		this.firstName = name;
 	}
 
 	public String getLastName()
@@ -89,7 +89,7 @@ public class Employee
 	@Override
 	public String toString()
 	{
-		return "Employee [firstName=" + testinggg + ", lastName=" + lastName + ", email=" + email + ", employeeId=" + employeeId
+		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", employeeId=" + employeeId
 					 + ", hireDate=" + hireDate + "]";
 	}
 
